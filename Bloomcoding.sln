@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bloomcoding.API", "Bloomcoding.API\Bloomcoding.API.csproj", "{7652F510-9DDD-4958-9A05-BD28B8232746}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bloomcoding.Domain", "Bloomcoding.Domain\Bloomcoding.Domain.csproj", "{AD47DB21-8EC8-44D0-A853-1F07E870672C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bloomcoding.Dal", "Bloomcoding.Dal\Bloomcoding.Dal.csproj", "{C7CE3BC0-D375-4CE3-AF9F-469CF8E13990}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bloomcoding.Bll", "Bloomcoding.Bll\Bloomcoding.Bll.csproj", "{13A1D70B-B0D0-4C99-9618-A256EBAD8594}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bloomcoding.Common", "Bloomcoding.Common\Bloomcoding.Common.csproj", "{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bloomcoding.Tests", "Bloomcoding.Tests\Bloomcoding.Tests.csproj", "{838C97E4-56F1-44A5-B042-41831E1B030B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7652F510-9DDD-4958-9A05-BD28B8232746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7652F510-9DDD-4958-9A05-BD28B8232746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7652F510-9DDD-4958-9A05-BD28B8232746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7652F510-9DDD-4958-9A05-BD28B8232746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD47DB21-8EC8-44D0-A853-1F07E870672C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD47DB21-8EC8-44D0-A853-1F07E870672C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD47DB21-8EC8-44D0-A853-1F07E870672C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD47DB21-8EC8-44D0-A853-1F07E870672C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7CE3BC0-D375-4CE3-AF9F-469CF8E13990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CE3BC0-D375-4CE3-AF9F-469CF8E13990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CE3BC0-D375-4CE3-AF9F-469CF8E13990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CE3BC0-D375-4CE3-AF9F-469CF8E13990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13A1D70B-B0D0-4C99-9618-A256EBAD8594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A1D70B-B0D0-4C99-9618-A256EBAD8594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A1D70B-B0D0-4C99-9618-A256EBAD8594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A1D70B-B0D0-4C99-9618-A256EBAD8594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{838C97E4-56F1-44A5-B042-41831E1B030B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838C97E4-56F1-44A5-B042-41831E1B030B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838C97E4-56F1-44A5-B042-41831E1B030B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838C97E4-56F1-44A5-B042-41831E1B030B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CBED9981-CC40-49FD-8C58-9D001979062D}
+	EndGlobalSection
+EndGlobal
