@@ -17,8 +17,13 @@ namespace Bloomcoding.Tests
         public GroupServiceTest()
         {
             var mockRepository = new Mock<IGenericRepository<Group>>();
-            var mockMapper = new Mock<IMapper>();
-            
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new GroupProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+
             mockRepository.Setup(x => x.GetById(It.Is<int>(x => x == 1)))
                 .ReturnsAsync(new Group()
                 {
@@ -26,13 +31,7 @@ namespace Bloomcoding.Tests
                     Name = "test1"
                 });
 
-            mockMapper.Setup(x => x.Map<Group, GroupDto>(It.IsAny<Group>()))
-                .Returns(new GroupDto());
-
-            mockMapper.Setup(x => x.Map<GroupDto, Group>(It.IsAny<GroupDto>()))
-                .Returns(new Group());
-
-            _sut = new GroupService(mockRepository.Object, mockMapper.Object);
+            _sut = new GroupService(mockRepository.Object, mapper);
         }
 
         [Fact]
