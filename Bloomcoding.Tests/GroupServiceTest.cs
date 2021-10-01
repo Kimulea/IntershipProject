@@ -17,21 +17,30 @@ namespace Bloomcoding.Tests
         public GroupServiceTest()
         {
             var mockRepository = new Mock<IGenericRepository<Group>>();
+            var mockMapper = new Mock<IMapper>();
 
-            var mappingConfig = new MapperConfiguration(mc =>
+            var group = new Group()
             {
-                mc.AddProfile(new GroupProfile());
-            });
-            IMapper mapper = mappingConfig.CreateMapper();
+                Id = 1,
+                Name = "test1"
+            };
+
+            var groupDto = new GroupDto()
+            {
+                Id = group.Id,
+                Name = group.Name
+            };
+
+            mockMapper
+                .Setup(x => x.Map<GroupDto>(It.Is<Group>(x => x == group)))
+                .Returns(groupDto);
+
+
 
             mockRepository.Setup(x => x.GetById(It.Is<int>(x => x == 1)))
-                .ReturnsAsync(new Group()
-                {
-                    Id = 1,
-                    Name = "test1"
-                });
+                .ReturnsAsync(group);
 
-            _sut = new GroupService(mockRepository.Object, mapper);
+            _sut = new GroupService(mockRepository.Object, mockMapper.Object);
         }
 
         [Fact]

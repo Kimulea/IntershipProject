@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Bloomcoding.API.Controllers
 {
-    [Route("api/account")]
+    [Route("api/user")]
     public class AccountController : BaseController
     {
         private readonly AuthOptions _authentificationOptions;
@@ -61,7 +61,13 @@ namespace Bloomcoding.API.Controllers
 
                 var encodedToken = tokenHandler.WriteToken(jwtSecurityToken);
 
-                return Ok(new { AccessToken = encodedToken });
+                return Ok(new ResponseUser()
+                {
+                    Id = user.Id,
+                    Username = user.UserName,
+                    Email = user.Email,
+                    Token = encodedToken
+                });
             }
 
             return Unauthorized();
@@ -93,12 +99,6 @@ namespace Bloomcoding.API.Controllers
             }
 
             return Ok("User Created!");
-        }
-        
-        [HttpPost("Logout")]
-        public async Task Logout()
-        {
-            await _signInManager.SignOutAsync();
         }
     }
 }

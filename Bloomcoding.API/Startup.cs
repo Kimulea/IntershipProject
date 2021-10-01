@@ -9,6 +9,7 @@ using Bloomcoding.Dal.Repositories;
 using Bloomcoding.Domain.Auth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -86,7 +87,11 @@ namespace Bloomcoding.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseCors(o =>
+                {
+                    o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+                app.UseMiddleware<ErrorHandlingMiddleware>();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bloomcoding.API v1"));
             }
@@ -94,7 +99,7 @@ namespace Bloomcoding.API
             {
                 app.UseMiddleware<ErrorHandlingMiddleware>();
             }
-                
+               
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -104,6 +109,7 @@ namespace Bloomcoding.API
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapGet("/asdfg", async context => { await context.Response.WriteAsync("what are you doing here?"); });
                 endpoints.MapControllers();
             });
         }

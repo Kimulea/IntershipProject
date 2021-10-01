@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Bloomcoding.Tests.IntegrationsTests
         {
             // Arrange
             var client = _factory.CreateClient();
-            var url = "/api/Group?id=1";
+            var url = "/api/Group/1";
 
             // Act
             var response = await client.GetAsync(url);
@@ -38,11 +39,11 @@ namespace Bloomcoding.Tests.IntegrationsTests
         }
 
         [Fact]
-        public async Task Get_Returns_Group()
+        public async Task Get_ReturnsForIdOne_Group()
         {
             // Arrange
             var client = _factory.CreateClient();
-            var url = "/api/Group?id=1";
+            var url = "/api/Group/1";
 
             // Act
             var group = await client.GetFromJsonAsync<GroupDto>(url);
@@ -50,6 +51,23 @@ namespace Bloomcoding.Tests.IntegrationsTests
             // Assert
             Assert.NotNull(group);
             Assert.Equal("test1", group.Name);
+        }
+
+        [Fact]
+        public async Task Delete_ReturnsStatusCodeForDelete_Group()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var url = "/api/Group/2";
+
+            // Act
+            var response = await client.DeleteAsync(url);
+
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("application/json; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
         }
     }
 }

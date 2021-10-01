@@ -3,6 +3,7 @@ using Bloomcoding.Common.Dtos.Groups;
 using Bloomcoding.Common.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace Bloomcoding.API.Controllers
             _groupService = groupService;
         }
 
+        [AllowAnonymous]
         [HttpPost("getAll")]
         public IEnumerable<GroupListDto> GetPagedGroups([FromBody] FiltersOptions filtersOptions)
         {
