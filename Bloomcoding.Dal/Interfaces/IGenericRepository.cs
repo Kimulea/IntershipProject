@@ -1,4 +1,5 @@
 ﻿using Bloomcoding.Common.Models.Pagination;
+using Bloomcoding.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -18,7 +19,6 @@ namespace Bloomcoding.Dal.Interfaces
         Task<IEnumerable<T>> GetAll();
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
         PagedList<T> GetPagedList(FiltersOptions filtersOptions);
-
         Task<int> CountAll();
         Task<int> CountWhere(Expression<Func<T, bool>> predicate);
 

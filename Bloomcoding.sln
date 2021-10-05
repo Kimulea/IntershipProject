@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bloomcoding.Bll", "Bloomcod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bloomcoding.Common", "Bloomcoding.Common\Bloomcoding.Common.csproj", "{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bloomcoding.Tests", "Bloomcoding.Tests\Bloomcoding.Tests.csproj", "{838C97E4-56F1-44A5-B042-41831E1B030B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Environment", "Environment\Environment.csproj", "{4CEFC3BC-EA78-4B3E-9025-E4695DE01253}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{601DDAF1-CF54-4EEF-BB21-0CD86E6128ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{838C97E4-56F1-44A5-B042-41831E1B030B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{838C97E4-56F1-44A5-B042-41831E1B030B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{838C97E4-56F1-44A5-B042-41831E1B030B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{838C97E4-56F1-44A5-B042-41831E1B030B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CEFC3BC-EA78-4B3E-9025-E4695DE01253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CEFC3BC-EA78-4B3E-9025-E4695DE01253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CEFC3BC-EA78-4B3E-9025-E4695DE01253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CEFC3BC-EA78-4B3E-9025-E4695DE01253}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

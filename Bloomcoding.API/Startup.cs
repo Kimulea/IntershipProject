@@ -27,7 +27,6 @@ namespace Bloomcoding.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BloomcodingDbContext>(optionBuilder =>
@@ -48,7 +47,15 @@ namespace Bloomcoding.API
             services.AddControllers();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IHomeworkRepository, HomeworkRepository>();
+
             services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IHomeworkService, HomeworkService>();
+            services.AddScoped<IUserGroupService, UserGroupService>();
+
             services.AddAutoMapper(typeof(BllAssemblyMarker));
 
             services.AddSwaggerGen(c =>
@@ -91,7 +98,7 @@ namespace Bloomcoding.API
                 {
                     o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
-                app.UseMiddleware<ErrorHandlingMiddleware>();
+                //app.UseMiddleware<ErrorHandlingMiddleware>();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bloomcoding.API v1"));
             }

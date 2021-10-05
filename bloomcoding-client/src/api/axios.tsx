@@ -1,7 +1,7 @@
 import axios from "axios";
 import authService from "../services/auth-service";
 
-axios.defaults.baseURL = "https://localhost:44340/api";
+axios.defaults.baseURL = "https://localhost:5001/api";
 
 axios.interceptors.response.use(undefined, (error) => {
     if (error.message === "Network Error" && !error.response){
@@ -31,12 +31,19 @@ const request = {
     getQuery: (url: string, qparams: any) => axios.get(url, {params: {...qparams}}).then(responseBody),
     post: (url: string, body: object) => axios.post(url, body).then(responseBody),
     put: (url: string, body: object) => axios.put(url, body).then(responseBody),
-    delete: (url: string) => axios.delete(url).then(responseBody),
+    delete: (url: string, body: object) => axios.delete(url, body).then(responseBody),
 };
 
 const Users = {
     register: (body: {username: string, email: string, password: string}) => request.post("user/register", body),
     login: (body: {username: string, password: string}) => request.post("user/login", body),
+    details: (id: number) => request.get(`user/${id}`),
+    update: (body: {id: number, email: string, username: string, avatarName: string, birthDate: string}) => request.put("user/update", body),
+    delete: (body: {id: number}) => request.delete("user/delete", body)
 }
 
-export {Users};
+const Files = {
+    getFile: (name: string) => request.get(`File/get/${name}`)
+}
+
+export {Users, Files};

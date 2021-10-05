@@ -2,8 +2,12 @@
 using Bloomcoding.Bll.Intefaces;
 using Bloomcoding.Common.Dtos.Groups;
 using Bloomcoding.Common.Models.Pagination;
+using Bloomcoding.Dal;
 using Bloomcoding.Dal.Interfaces;
+using Bloomcoding.Dal.Repositories;
 using Bloomcoding.Domain;
+using Bloomcoding.Domain.Auth;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,10 +15,10 @@ namespace Bloomcoding.Bll.Services
 {
     public class GroupService : IGroupService
     {
-        private readonly IGenericRepository<Group> _repository;
+        private readonly IGroupRepository _repository;
         private readonly IMapper _mapper;
 
-        public GroupService(IGenericRepository<Group> repository, IMapper mapper)
+        public GroupService(IGroupRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -23,6 +27,12 @@ namespace Bloomcoding.Bll.Services
         public IEnumerable<GroupListDto> GetGroups(FiltersOptions filtersOptions)
         {
             var groupList = _repository.GetPagedList(filtersOptions);
+            return _mapper.Map<List<GroupListDto>>(groupList);
+        }
+
+        public async Task<IEnumerable<GroupListDto>> GetUserGroups(int id)
+        {
+            var groupList = await _repository.GetUserGroups(id);
             return _mapper.Map<List<GroupListDto>>(groupList);
         }
 

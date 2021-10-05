@@ -4,12 +4,10 @@ import { useHistory } from "react-router";
 import authService from "../services/auth-service";
 import Login from "./Login";
 import Register from "./Register";
-import BackgoundImg from "../images/background-trend.jpg";
 import GroupImg from "../images/group.png";
 import BloomImg from "../images/Bloom-logo.png";
 
 const Welcome = () => {
-    const bgImage={backgroundImage:`url(${BackgoundImg})`};
 
     const [logging, setLogging] = useState(true);
 
@@ -21,7 +19,7 @@ const Welcome = () => {
     }
 
     return(
-        <Box display="flex" style={bgImage}>
+        <Box display="flex">
             <Grid style={{margin:'70px 0'}}>
               <Box display="flex" justifyContent="space-evenly" style={{borderBottom:'1'}}>
                 <Button

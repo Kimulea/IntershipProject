@@ -8,7 +8,14 @@ namespace Bloomcoding.Domain
 {
     public class Course : BaseEntity
     {
+        public Course()
+        {
+            Homeworks = new HashSet<Homework>();
+        }
+
         public string Name { get; set; }
-        public IEnumerable<Group> Groups { get; set; }
+        public int GroupId { get; set; }
+        public virtual Group Group { get; set; }
+        public virtual ICollection<Homework> Homeworks { get; set; }
     }
 }

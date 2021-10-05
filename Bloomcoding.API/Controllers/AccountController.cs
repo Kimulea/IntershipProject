@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Bloomcoding.API.Infrastructure.Middlewares;
 
 namespace Bloomcoding.API.Controllers
 {
@@ -70,7 +71,7 @@ namespace Bloomcoding.API.Controllers
                 });
             }
 
-            return Unauthorized();
+            return BadRequest(new { message = "wrong login data"});
         }
 
         [AllowAnonymous]

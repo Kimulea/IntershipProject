@@ -24,7 +24,7 @@ namespace Bloomcoding.Dal.EntityConfiguration
             builder
                 .HasMany(x => x.Users)
                 .WithMany(x => x.Groups)
-                .UsingEntity(x => x.ToTable("UserGroups"));
+                .UsingEntity(x => x.ToTable("UserGoups"));
         }
     }
 }

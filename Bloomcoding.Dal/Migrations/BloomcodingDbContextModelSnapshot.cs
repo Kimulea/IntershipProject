@@ -81,6 +81,14 @@ namespace Bloomcoding.Dal.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("AvatarName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BirthDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Date")
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -223,12 +231,17 @@ namespace Bloomcoding.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Courses");
                 });
@@ -255,19 +268,32 @@ namespace Bloomcoding.Dal.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("CourseGroup", b =>
+            modelBuilder.Entity("Bloomcoding.Domain.Homework", b =>
                 {
-                    b.Property<int>("CoursesId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Condition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GroupsId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Deadaline")
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("CoursesId", "GroupsId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
-                    b.HasIndex("GroupsId");
+                    b.HasKey("Id");
 
-                    b.ToTable("GroupCourses");
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Homeworks");
                 });
 
             modelBuilder.Entity("GroupUser", b =>
@@ -282,7 +308,7 @@ namespace Bloomcoding.Dal.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("UserGroups");
+                    b.ToTable("UserGoups");
                 });
 
             modelBuilder.Entity("Bloomcoding.Domain.Auth.RoleClaim", b =>
@@ -336,19 +362,26 @@ namespace Bloomcoding.Dal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseGroup", b =>
+            modelBuilder.Entity("Bloomcoding.Domain.Course", b =>
                 {
-                    b.HasOne("Bloomcoding.Domain.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
+                    b.HasOne("Bloomcoding.Domain.Group", "Group")
+                        .WithMany("Courses")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bloomcoding.Domain.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsId")
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Bloomcoding.Domain.Homework", b =>
+                {
+                    b.HasOne("Bloomcoding.Domain.Course", "Course")
+                        .WithMany("Homeworks")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("GroupUser", b =>
@@ -364,6 +397,16 @@ namespace Bloomcoding.Dal.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Bloomcoding.Domain.Course", b =>
+                {
+                    b.Navigation("Homeworks");
+                });
+
+            modelBuilder.Entity("Bloomcoding.Domain.Group", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bloomcoding.Dal.EntityConfiguration
 {
-    class CourseConfig : IEntityTypeConfiguration<Course>
+    public class CourseConfig : IEntityTypeConfiguration<Course>
     {
         public void Configure(EntityTypeBuilder<Course> builder)
         {
@@ -17,9 +17,9 @@ namespace Bloomcoding.Dal.EntityConfiguration
                 .HasMaxLength(255);
 
             builder
-                .HasMany(x => x.Groups)
+                .HasOne(x => x.Group)
                 .WithMany(x => x.Courses)
-                .UsingEntity(x => x.ToTable("GroupCourses"));
+                .HasForeignKey(x => x.GroupId);
         }
     }
 }

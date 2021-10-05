@@ -13,10 +13,12 @@ namespace Bloomcoding.API.Controllers
     public class GroupController : BaseController
     {
         private readonly IGroupService _groupService;
+        private readonly IUserGroupService _userGroupService;
 
-        public GroupController(IGroupService groupService)
+        public GroupController(IGroupService groupService, IUserGroupService userGroupService)
         {
             _groupService = groupService;
+            _userGroupService = userGroupService;
         }
 
         [AllowAnonymous]
@@ -26,6 +28,15 @@ namespace Bloomcoding.API.Controllers
             var pagedGroupsDto = _groupService.GetGroups(filtersOptions);
 
             return pagedGroupsDto;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("UserGroups/{id}")]
+        public async Task<IEnumerable<GroupListDto>> GetUserGroups(int id)
+        {
+            var GroupsDto = await _groupService.GetUserGroups(id);
+
+            return GroupsDto;
         }
 
         [AllowAnonymous]

@@ -1,4 +1,4 @@
-import { Avatar, Box, FormControl, FormHelperText, Grid, InputLabel, OutlinedInput, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Button, FormControl, FormHelperText, Grid, InputLabel, OutlinedInput, Paper, Typography } from "@mui/material";
 import LockIcon from '@mui/icons-material/Lock';
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
@@ -6,13 +6,8 @@ import { Context } from "../stores/UserStore";
 import { useHistory } from "react-router-dom";
 import authService from "../services/auth-service";
 
-interface FormInputs{
-  username: string;
-  password: string;
-}
-
 const Login = () => {
-    const paperStyle={padding: 20, height: '70vh', width: '300px', margin:'-40px 60px'};
+    const paperStyle={padding: 20, height: '500px', width: '300px', margin:'-40px 60px'};
     const avatarStyle={margin:'0 auto', backgroundColor:'green'};
 
     const {
@@ -21,7 +16,7 @@ const Login = () => {
       formState: { errors },
     } = useForm();
 
-    const [userState, dispatch] = useContext(Context)
+    const [, dispatch] = useContext(Context)
     const history = useHistory();
 
     const [loginError, setLoginError] = useState<boolean>(false);
@@ -44,35 +39,55 @@ const Login = () => {
                         dispatch({type: 'SET_USER', payload: authService.getCurrentUser()});
                     })
                     .catch((error) => {
-                      if(error.response?.data.errors.message) {
+                      if(error?.response) {
                         setLoginError(true);
                       }
                     });
                 })}
               >
+  
+                <Box style={{margin:'-350px 120px'}}>
+                  <FormControl variant="outlined" required={true} >
+                    <InputLabel htmlFor="component-outlined">username</InputLabel>
+                    <OutlinedInput
+                      {...register("username", {
+                        required: {value: true, message: "username is required"},
+                        minLength: {
+                          value: 3,
+                          message: "username should be at least 3 chars long.",
+                        },
+                      })}
+                      type="username"
+                      id="username"
+                      label="username"
+                    />
 
-                <FormControl variant="outlined" required={true} style={{margin:'-px 0px'}}>
-                  <InputLabel htmlFor="component-outlined">username</InputLabel>
-                  <OutlinedInput
-                    {...register("username", {
-                      required: {value: true, message: "username is required"},
-                      pattern: {
-                        value:
-                          /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                        message: "Invalid username address",
-                      },
-                    })}
-                    type="username"
-                    id="username"
-                    label="username"
-                  />
-                  <div>{errors.username?.required.message}</div>
-                  {loginError && (
-                    <FormHelperText error id="username-error-text">
-                      Wrong login info
-                    </FormHelperText>
-                  )}
-                </FormControl>
+                  </FormControl>
+
+                  <FormControl variant="outlined" required={true} style={{marginTop:'20px'}}>
+                    <InputLabel error={errors.password} htmlFor="password">Password</InputLabel>
+                    <OutlinedInput
+                      error={errors.password}
+                      {...register("password", { required: true, minLength: {value: 8, message: "Password must be at least 8 characters."} })}
+                      type="password"
+                      id="password"
+                      label="Password"
+                    />
+                    
+
+                    {loginError && (
+                      <FormHelperText error id="email-error-text">
+                        Wrong login info
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+
+                  <Box display="grid" justifyContent="center">
+                  <Button style={{marginTop:'20px'}} type="submit" variant="contained" color="primary">
+                    Submit
+                  </Button>
+                  </Box>
+                </Box>
                 
               </form>
             </Grid>
