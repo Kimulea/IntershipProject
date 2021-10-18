@@ -29,7 +29,7 @@ namespace Bloomcoding.Common.Models.Pagination
         public static PagedList<T> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
-            var items =  source.Skip((pageNumber - 1) * pageSize)
+            var items =  source.Skip((pageNumber) * pageSize)
                         .Take(pageSize)
                         .ToList();
 

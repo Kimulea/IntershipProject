@@ -10,6 +10,6 @@ namespace Bloomcoding.Dal.Interfaces
 {
     public interface IGroupRepository : IGenericRepository<Group>
     {
-        Task<IEnumerable<Group>> GetUserGroups(int id);
+        Task<List<Group>> GetUserGroups(int id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bloomcoding.Bll.Intefaces;
+using Bloomcoding.Common.Exceptions;
 using Bloomcoding.Dal;
 using Bloomcoding.Dal.Interfaces;
 using Bloomcoding.Domain;
@@ -28,8 +29,16 @@ namespace Bloomcoding.Bll.Services
             var group = await _groupRepository.GetById(groupId);
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
+            if (group == null)
+                throw new NullException("group is null");
+
+            if (user == null)
+                throw new NullException("user is null");
+
             group.Users.Add(user);
+            user.Groups.Add(group);
             await _groupRepository.Update(group);
+            await _userManager.UpdateAsync(user);
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Bloomcoding.Common.Exceptions
 {
-    class ApiExceptionFilter : ExceptionFilterAttribute
+    public class ApiExceptionFilter : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
         {

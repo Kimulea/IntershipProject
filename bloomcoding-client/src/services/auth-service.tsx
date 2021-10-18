@@ -11,6 +11,7 @@ export interface RegisterData {
   password: string;
 }
 
+
 class AuthService {
   login(userData: LoginData) {
     return Users.login(userData).then((response) => {
@@ -34,6 +35,10 @@ class AuthService {
 
   getCurrentUserId() {
     return JSON.parse(localStorage.getItem("user")!).id;
+  }
+
+  getRole() {
+    return JSON.parse(localStorage.getItem("user")!).role;
   }
 }
 

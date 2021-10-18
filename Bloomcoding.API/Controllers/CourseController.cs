@@ -29,5 +29,32 @@ namespace Bloomcoding.API.Controllers
 
             return Ok(pagedGroupsDto);
         }
+
+        [AllowAnonymous]
+        [HttpGet("count/{id}")]
+        public async Task<int> CountCourses(int id)
+        {
+            var count = await _courseService.CountCourses(id);
+
+            return count;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateCourse(CreateCourseDto createCourseDto)
+        {
+            await _courseService.CreateCourse(createCourseDto);
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteCourse(int id)
+        {
+            await _courseService.DeleteCourse(id);
+
+            return Ok();
+        }
     }
 }
+

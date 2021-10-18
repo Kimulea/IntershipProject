@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bloomcoding.Common.Dtos.Groups
+namespace Bloomcoding.Common.Dtos.Courses
 {
-    public class GroupDto
+    public class CreateCourseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Info { get; set; }
     }
 }

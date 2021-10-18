@@ -16,6 +16,7 @@ namespace Bloomcoding.Domain
         }
 
         public string Name { get; set; }
+        public string Info { get; set; }
         public bool Active { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Course> Courses { get; set; }

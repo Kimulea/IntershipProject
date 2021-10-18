@@ -28,10 +28,9 @@ const responseBody = (response: any) => {
 
 const request = {
     get: (url: string) => axios.get(url).then(responseBody),
-    getQuery: (url: string, qparams: any) => axios.get(url, {params: {...qparams}}).then(responseBody),
     post: (url: string, body: object) => axios.post(url, body).then(responseBody),
     put: (url: string, body: object) => axios.put(url, body).then(responseBody),
-    delete: (url: string, body: object) => axios.delete(url, body).then(responseBody),
+    delete: (url: string) => axios.delete(url).then(responseBody),
 };
 
 const Users = {
@@ -39,11 +38,34 @@ const Users = {
     login: (body: {username: string, password: string}) => request.post("user/login", body),
     details: (id: number) => request.get(`user/${id}`),
     update: (body: {id: number, email: string, username: string, avatarName: string, birthDate: string}) => request.put("user/update", body),
-    delete: (body: {id: number}) => request.delete("user/delete", body)
+    users: (body: {pageNumber: number, pageSize: number}) => request.post("user/users", body),
+    countUsers: () => request.get("user/countAll")
+}
+
+const Groups = {
+    userGroups: (id : number, body: {pageNumber: number, pageSize: number}) => request.post(`Group/UserGroups/${id}`, body),
+    countUserGroups:(id : number) => request.get(`Group/CountUserGroups/${id}`),
+    groups: (body: {pageNumber: number, pageSize: number}) => request.post("Group/getAll", body),
+    countGroups: () => request.get("Group/countAll"),
+    group: (id : number) => request.get(`Group/${id}`),
+    create: (body: {name : string, info: string}) => request.post("Group/CreateGroup", body),
+    update: (id: number, body: {name : string, info: string}) => request.put(`Group/${id}`, body),
+    delete: (id : number) => request.delete(`Group/${id}`),
+}
+
+const Courses = {
+    create: (body: {id: number, name : string}) => request.post("Course/create", body),
+    delete: (id : number) => request.delete(`Course/delete/${id}`),
+    courses: (id: number, body: {pageNumber: number, pageSize: number}) => request.post(`Course/list/${id}`, body),
+    count: (id: number) => request.get(`Course/count/${id}`)
+}
+
+const UserGroups = {
+    createUserGroups: (body:{userId: number, groupId: number}) => request.post("UserGroup/AddUserToGroup", body),
 }
 
 const Files = {
     getFile: (name: string) => request.get(`File/get/${name}`)
 }
 
-export {Users, Files};
+export {Users, Files, Groups, UserGroups, Courses};

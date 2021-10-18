@@ -9,6 +9,7 @@ using Bloomcoding.Domain;
 using Bloomcoding.Domain.Auth;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bloomcoding.Bll.Services
@@ -24,16 +25,35 @@ namespace Bloomcoding.Bll.Services
             _mapper = mapper;
         }
 
+        public async Task<int> CountGroups()
+        {
+            var groups = await _repository.GetAll();
+
+            return groups.Count();
+        }
+
         public IEnumerable<GroupListDto> GetGroups(FiltersOptions filtersOptions)
         {
             var groupList = _repository.GetPagedList(filtersOptions);
             return _mapper.Map<List<GroupListDto>>(groupList);
         }
 
-        public async Task<IEnumerable<GroupListDto>> GetUserGroups(int id)
+        public async Task<IEnumerable<GroupListDto>> GetUserGroups(int id, FiltersOptions filtersOptions)
         {
             var groupList = await _repository.GetUserGroups(id);
-            return _mapper.Map<List<GroupListDto>>(groupList);
+
+            var filteredGroups = groupList.OrderBy(x => x.Name)
+                                .Skip((filtersOptions.PageNumber) * filtersOptions.PageSize)
+                                .Take(filtersOptions.PageSize)
+                                .ToList();
+
+            return _mapper.Map<List<GroupListDto>>(filteredGroups);
+        }
+
+        public async Task<int> CountUserGroups(int id)
+        {
+            var groups =  await _repository.GetUserGroups(id);
+            return groups.Count();
         }
 
         public async Task<GroupDto> GetGroup(int id)

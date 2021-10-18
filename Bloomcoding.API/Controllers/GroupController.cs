@@ -22,6 +22,13 @@ namespace Bloomcoding.API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("countAll")]
+        public async Task<int> GetPagedGroups()
+        {
+            return await _groupService.CountGroups();
+        }
+
+        [AllowAnonymous]
         [HttpPost("getAll")]
         public IEnumerable<GroupListDto> GetPagedGroups([FromBody] FiltersOptions filtersOptions)
         {
@@ -31,12 +38,19 @@ namespace Bloomcoding.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("UserGroups/{id}")]
-        public async Task<IEnumerable<GroupListDto>> GetUserGroups(int id)
+        [HttpPost("UserGroups/{id}")]
+        public async Task<IEnumerable<GroupListDto>> GetUserGroups(int id, [FromBody] FiltersOptions filtersOptions)
         {
-            var GroupsDto = await _groupService.GetUserGroups(id);
+            var GroupsDto = await _groupService.GetUserGroups(id, filtersOptions);
 
             return GroupsDto;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("CountUserGroups/{id}")]
+        public async Task<int> CountUserGroups(int id)
+        {
+            return await _groupService.CountUserGroups(id);
         }
 
         [AllowAnonymous]
@@ -59,7 +73,7 @@ namespace Bloomcoding.API.Controllers
 
             var groupDto = await _groupService.CreateGroup(groupForUpdateDto);
 
-            return CreatedAtAction(nameof(GetGroup), new { name = groupDto.Id }, groupDto);
+            return Ok("succes");
         }
 
         [AllowAnonymous]

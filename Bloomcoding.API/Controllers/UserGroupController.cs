@@ -1,5 +1,6 @@
 ﻿using Bloomcoding.Bll.Intefaces;
 using Bloomcoding.Common.Dtos.Groups;
+using Bloomcoding.Common.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace Bloomcoding.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("AddUserToGroup")]
+        [ApiExceptionFilter]
         public async Task<IActionResult> AddUserToGroup(UserGroupDto userGroupDto)
         {
             await _userGroupService.UserGroupCreate(userGroupDto.UserId, userGroupDto.GroupId);

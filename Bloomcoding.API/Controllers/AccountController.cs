@@ -67,6 +67,7 @@ namespace Bloomcoding.API.Controllers
                     Id = user.Id,
                     Username = user.UserName,
                     Email = user.Email,
+                    Role = roles[0],
                     Token = encodedToken
                 });
             }

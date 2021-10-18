@@ -21,9 +21,10 @@ namespace Bloomcoding.Dal.Repositories
             _context = context;
             _table = _context.Set<Course>();
         }
-        public Task Add(Course entity)
+        public async Task Add(Course entity)
         {
-            throw new NotImplementedException();
+            await _table.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public Task<int> CountAll()
@@ -31,9 +32,9 @@ namespace Bloomcoding.Dal.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> CountWhere(Expression<Func<Course, bool>> predicate)
+        public async Task<int> CountWhere(Expression<Func<Course, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _table.CountAsync(predicate);
         }
 
         public Task<Course> FirstOrDefault(Expression<Func<Course, bool>> predicate)
@@ -63,7 +64,8 @@ namespace Bloomcoding.Dal.Repositories
 
         public Task Remove(Course entity)
         {
-            throw new NotImplementedException();
+            _table.Remove(entity);
+            return _context.SaveChangesAsync();
         }
 
         public Task Update(Course entity)

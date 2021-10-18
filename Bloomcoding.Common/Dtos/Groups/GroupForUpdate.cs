@@ -9,5 +9,6 @@ namespace Bloomcoding.Common.Dtos.Groups
     public class GroupForUpdate
     {
         public string Name { get; set; }
+        public string Info { get; set; }
     }
 }

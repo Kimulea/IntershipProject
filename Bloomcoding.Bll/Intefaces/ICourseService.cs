@@ -11,5 +11,8 @@ namespace Bloomcoding.Bll.Intefaces
     public interface ICourseService
     {
         Task<IEnumerable<CourseListDto>> GetCourses(int id, FiltersOptions filtersOptions);
+        Task<int> CountCourses(int id);
+        Task CreateCourse(CreateCourseDto createCourseDto);
+        Task DeleteCourse(int id);
     }
 }

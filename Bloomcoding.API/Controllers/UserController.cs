@@ -7,6 +7,7 @@ using Bloomcoding.Domain.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,16 +51,40 @@ namespace Bloomcoding.API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("countAll")]
+        public async Task<int> Users()
+        {
+            var students = await _userManager.Users.ToListAsync();
+
+            return students.Count();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Users")]
+        public async Task<IActionResult> Users(FiltersOptions filtersOptions)
+        {
+            var students = await _userManager.Users.ToListAsync();
+            var result = students
+                                .OrderBy(x => x.UserName)
+                                .Skip((filtersOptions.PageNumber) * filtersOptions.PageSize)
+                                .Take(filtersOptions.PageSize);
+
+            return Ok(_mapper.Map<List<UsersDto>>(result));
+        }
+
+        [AllowAnonymous]
         [HttpPost("GroupStudents/{id}")]
         public async Task<IActionResult> GetGroupStudents(int id, FiltersOptions filtersOptions)
         {
             var students = await _userManager.GetUsersInRoleAsync("student");
             var count = students.Count();
-            var result = students.OrderBy(x => x.UserName).
-                                Skip((filtersOptions.PageNumber - 1) * filtersOptions.PageSize)
-                                .Take(filtersOptions.PageSize)
-                                .ToList();
-            return Ok(_mapper.Map<List<UsersDto>>(result));
+            var result1 = students.Where(x => x.Groups.Any(y => y.Id == id));
+            var result2 = result1
+                                .OrderBy(x => x.UserName)
+                                .Skip((filtersOptions.PageNumber - 1) * filtersOptions.PageSize)
+                                .Take(filtersOptions.PageSize);
+
+            return Ok(_mapper.Map<List<UsersDto>>(result2));
         }
 
         [AllowAnonymous]
@@ -98,6 +123,34 @@ namespace Bloomcoding.API.Controllers
             if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+            }
+
+            return Ok(new { message = "Admin Created!" });
+        }
+
+        [AllowAnonymous]
+        [HttpPost("CreateTeacher")]
+        public async Task<IActionResult> CreateTeacher(UserForRegisterDto userForRegisterDto)
+        {
+            var userExists = await _userManager.FindByNameAsync(userForRegisterDto.Username);
+
+            if (userExists != null)
+                return BadRequest(new { message = "User already exists" });
+
+            User user = new User()
+            {
+                Email = userForRegisterDto.Email,
+                UserName = userForRegisterDto.Username
+            };
+
+            var result = await _userManager.CreateAsync(user, userForRegisterDto.Password);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            if (await _roleManager.RoleExistsAsync(UserRoles.Teacher))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.Teacher);
             }
 
             return Ok(new { message = "Admin Created!" });

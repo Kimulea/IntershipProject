@@ -59,7 +59,7 @@ namespace Bloomcoding.Dal.Repositories
             return PagedList<Group>.ToPagedList(_table.OrderBy(x => x.Id), filtersOptions.PageNumber, filtersOptions.PageSize);
         }
 
-        public async Task<IEnumerable<Group>> GetUserGroups(int id)
+        public async Task<List<Group>> GetUserGroups(int id)
         {
             return await _table.Where(x => x.Users.Any(y => y.Id == id)).ToListAsync();
         }
